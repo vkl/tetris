@@ -1,0 +1,129 @@
+body {
+	margin-top: 10px;
+}
+
+.container {
+	  padding-right: 0px;
+      padding-left: 0px;
+      width: 282px;
+      height: 500px;
+  	  /* margin-top: 10px; */
+  	  margin-left: auto;
+  	  margin-right: auto;
+  	  /* text-align: center; */
+  	  /* border: 2px solid #BBB; */
+  	  /* float: left; */
+ }
+ .leftpanel {
+      width: 40px;
+      height: 444px;
+      font-size: 16px;
+      text-align: center;
+      position: relative;
+      top: -446px;
+      left: -16px;
+      vertical-align: text-bottom;
+ } 
+ .leftpanel > span {
+      position: relative;
+      top: 50px;
+ }
+ .rightpanel {
+      width: 40px;
+      height: 444px;
+      font-size: 16px;
+      text-align: center;
+      position: relative;
+      top: -892px;
+      left: 256px;
+      vertical-align: text-bottom;
+ }
+ .footer {
+ 	  margin-top: 4px;
+      padding: 2px;
+ 	  width: 220px;
+      position: relative;
+      top: -890px;
+      left: 28px;
+      text-align: center;
+ }
+ .header {
+      width: 222px; 
+      margin-left: auto;
+  	  margin-right: auto;
+  	  margin-bottom: 2px;
+  	  text-align: center;
+ }
+ .main {
+      width: 222px; 
+      height: 442px;
+      border: 2px solid #BBB;
+      text-align: center;
+      background: #FFF;
+      margin-left: auto;
+  	  margin-right: auto;
+ }
+ .control {
+  	  margin-top: 10px;
+  	  text-align: center;
+ }
+ .stack {
+      width: 222px;
+      height: 442px;
+ }
+ rect.off {
+  	fill: #EEE;
+ }
+ rect.on {
+  	fill: #256;
+ }
+ 
+.btn:hover {
+    color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+    text-decoration: none;
+}
+
+.btn {
+	color: #fff;
+    background-color: #337ab7;
+    border-color: #2e6da4;
+    display: inline-block;
+    padding: 3px 6px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    text-decoration: none;
+    width: 20px;
+    height: 20px;
+}
+
+.btn-width {
+	padding-left: 30px;
+	padding-right: 30px;
+}
+
+.btn-width {
+	width: 150px;
+}
+
+#rightBtn, #downBtn {
+	position: relative;
+    top: 350px;
+}
+ 
+#turnBtn, #leftBtn {
+	position: relative;
+    top: 320px;
+}
