@@ -60,7 +60,7 @@ Shape.prototype.show = function() {
 	for (j=0; j<lines.length; j++){
 		l = lines[j].length;
 		for ( i=0; i<l; i++ ) {
-			cell = $("rect")[(((this.x+i)-1)*20) + ((this.y+j)-1)];
+			cell = document.getElementsByTagName("rect")[(((this.x+i)-1)*20) + ((this.y+j)-1)];
 			if (lines[j].substr(i, 1) === "1") {
 				cells.push(cell);
 				if ( cell == undefined ) return false;
@@ -80,7 +80,7 @@ Shape.prototype.hide = function(){
 	for (j=0; j<lines.length; j++){
 		l = lines[j].length;
 		for ( i=0; i<l; i++ ) {
-			cell = $("rect")[(((this.x+i)-1)*20) + ((this.y+j)-1)];
+			cell = document.getElementsByTagName("rect")[(((this.x+i)-1)*20) + ((this.y+j)-1)];
 			if ( cell == undefined ) return;
 			if (lines[j].substr(i, 1) === "1") cell.setAttribute("class", "off");
 		}
@@ -144,7 +144,7 @@ function checkLine(index) {
 	var x;
 	var result = 0;
 	for (x=1; x<=maxCells; x++) {
-		if ($("rect")[((x-1) * 20) + (index-1)].getAttribute("class") == "on") 
+		if (document.getElementsByTagName("rect")[((x-1) * 20) + (index-1)].getAttribute("class") == "on") 
 			result++;
 	}
 	return result;
@@ -153,7 +153,7 @@ function checkLine(index) {
 function removeLine(index) {
 	var x;
 	for (x=1; x<=maxCells; x++) {
-		$("rect")[((x-1) * 20) + (index-1)].setAttribute("class", "off"); 
+		document.getElementsByTagName("rect")[((x-1) * 20) + (index-1)].setAttribute("class", "off"); 
 	}
 }
 
@@ -165,36 +165,41 @@ function copyLines(toIndex) {
 	    for (x=1; x<=maxCells; x++) {
 	    	fromIndex = y - 2;  
 	    	if (fromIndex <= 0) break;
-	    	val = $("rect")[((x-1) * 20) + fromIndex].getAttribute("class"); 
-	    	$("rect")[((x-1) * 20) + (y-1)].setAttribute("class", val);
+	    	val = document.getElementsByTagName("rect")[((x-1) * 20) + fromIndex].getAttribute("class"); 
+	    	document.getElementsByTagName("rect")[((x-1) * 20) + (y-1)].setAttribute("class", val);
 	    }
 	}
 }
 
-$( document ).ready(function() {
+function main() {
 	
 	fillField();
 	
-	$( "#startGame" ).click(function(){
+	document.getElementById("startGame").onclick = function(){
 		clearTimeout(timer);
 		timer = 0;
 		score = 0;
 		level = 0;
 		timeout = 800; 
-		$(".score b").html(score);
-		$( ".leftpanel span b" ).html(level);
+		document.getElementsByClassName("score")[0]
+		    .children[0]
+		    .innerText = score;
+		document.getElementsByClassName("level")[0]
+		    .children[0]
+		    .innerText = level;
 		if (currentShape) currentShape = undefined;
 		var rects = document.getElementsByTagName("rect");
 		var i;
 		for (i=0; i<rects.length; i++) {
 			rects[i].setAttribute("class", "off");
 		}
+		document.getElementsByTagName("text")[0].innerHTML = "";
 		startGame = true;
 		Action();
-	});
+	};
 	
 	// pause
-	$( ".main" ).click(function(){
+	document.getElementsByClassName("main").onclick = function(){
 		if (startGame) {
 			if (timer) {
 				clearTimeout(timer);
@@ -205,41 +210,41 @@ $( document ).ready(function() {
 				Action();
 			}
 		}
-	})
+	};
 	
-	$( "#turnBtn" ).click(function(){
+	document.getElementById("turnBtn").onclick = function(){
 		if (currentShape && timer) {
 			clearTimeout(timer);
 			currentShape.turn();
 			Action();
 		}
-	});
+	};
 	
-	$( "#leftBtn" ).click(function(){
+	document.getElementById("leftBtn").onclick = function(){
 		if (currentShape && timer) {
 			clearTimeout(timer);
 			currentShape.moveLeft();
 			Action();
 		}
-	})
+	};
 	
-	$( "#rightBtn" ).click(function(){
+	document.getElementById("rightBtn").onclick = function(){
 		if (currentShape && timer) {
 			clearTimeout(timer);
 			currentShape.moveRight();
 			Action();
 		}
-	});
+	};
 	
-	$( "#downBtn" ).click(function(){
+	document.getElementById("downBtn").onclick = function(){
 		if (currentShape && timer) {
 			currentShape.moveDown(true);
 		}
-	});
+	};
 	
-	$( "body" ).keydown(function( event ){
+	document.getElementById("game").onkeydown = function( event ){
 	  if (startGame) { 
-		switch ( event.which ){
+		switch ( event.keyCode ){
 			case 38: // turn
 				if (currentShape && timer) {
 					clearTimeout(timer);
@@ -277,10 +282,10 @@ $( document ).ready(function() {
 				}
 				break
 			default:
-				console.log( event.which );
+				console.log( event.keyCode );
 		}
 	  }	
-	});
+	};
 	
 	function Action() {
 		if ( currentShape == undefined ) {
@@ -305,14 +310,19 @@ $( document ).ready(function() {
 					if (result === 0) break; else rows.push(result);
 					if (result === 10) {
 						score += 10;
-						$(".score b").html(score);
+						console.log(score);
+						document.getElementsByClassName("score")[0]
+						    .children[0]
+						    .innerText = score;
 						removeLine( index );
 						copyLines( index );
 						index++;
 						if ( score >= (100 + (100 * level)) ) {
 							level++;
 							timeout = timeout - (level * 10);
-							$( ".level b" ).html(level);
+							document.getElementByClassName("level" )
+							    .children[0]
+							    .innerText = level;
 						}
 					}
 				}
@@ -320,5 +330,4 @@ $( document ).ready(function() {
 		}
 		timer = setTimeout(Action, timeout);
 	}
-	
-});
+};
