@@ -320,7 +320,7 @@ function main() {
 						if ( score >= (100 + (100 * level)) ) {
 							level++;
 							timeout = timeout - (level * 10);
-							document.getElementByClassName("level" )
+							document.getElementsByClassName("level" )[0]
 							    .children[0]
 							    .innerText = level;
 						}
